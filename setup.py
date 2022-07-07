@@ -5,19 +5,20 @@ from setuptools import setup, find_packages
 
 setup(
     name='onmqtt',
-    version=0.1,
+    version=0.3,
     description=(
-        'link to mqtt '
+        'link to mqtt'
     ),
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
     author='onlytao',
-    author_email='onlytao@gmail.com',
+    author_email='onlytao970@gmail.com',
     maintainer='onlytao',
-    maintainer_email='onlytao@gmail.com',
-    license='BSD License',
+    maintainer_email='onlytao970@gmail.com',
+    license='MIT License',
     packages=find_packages(),
     platforms=["all"],
-    url='<项目的网址，我一般都是github的url>',
+    url='https://github.com/only-tao/onmqtt>',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Operating System :: OS Independent',
@@ -33,4 +34,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries'
     ],
+    install_requires=[
+        'paho-mqtt'
+    ]
 )

@@ -1,11 +1,16 @@
 import paho.mqtt.client as mqtt
 from datetime import datetime
 import json
+info = -1
+def on_msg(client, userdata, msg):
+    global info
+    info = msg.payload.decode('utf8')
+    print("getinfo:",info)
 class onenet_mqtt(mqtt.Client):
     host = '183.230.40.39'  # mqtt.heclouds.com
     port = 6002
 
-    def __init__(self, pid, did, auth, keepalive=60) -> None:
+    def __init__(self, pid, did, auth) -> None:
         '''
         pid: Product ID，产品ID,
         did：Device ID， 设备ID,
@@ -15,13 +20,13 @@ class onenet_mqtt(mqtt.Client):
         self.product_id = pid 
         self.device_id = did
         self.auth_info = auth
-
+        self.info = -1
         super().__init__(did)
         super().username_pw_set(pid, password=auth)
-        super().connect(self.host, self.port, keepalive)  # 心跳
+        self.on_message = on_msg
+    def connect_onenet(self):
+        super().connect(self.host, self.port, keepalive=60)  # 心跳
         pass
-
-
 
     def __packdata(self, data):
         ''' 
@@ -63,3 +68,6 @@ class onenet_mqtt(mqtt.Client):
         }
         payload = self.__packdata(values)
         return super().publish('$dp', payload, qos)
+    def get_info(self):
+        global info
+        return info
