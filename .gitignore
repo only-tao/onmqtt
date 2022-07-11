@@ -1,0 +1,6 @@
+build/*
+dist/*
+*.log
+*.txt
+test/*
+onmqtt.egg-info/*
