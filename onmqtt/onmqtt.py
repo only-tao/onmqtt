@@ -68,6 +68,6 @@ class onenet_mqtt(mqtt.Client):
         }
         payload = self.__packdata(values)
         return super().publish('$dp', payload, qos)
-    def get_info(self):
+    def getinfo(self):
         global info
         return info

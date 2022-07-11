@@ -7,4 +7,6 @@ i:
 t:
 	python3 test/test.py
 upload:
-	python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	python3 -m twine upload --repository-url https://pypi.org/legacy/ dist/*
+uploadreal:
+	twine upload dist/*
