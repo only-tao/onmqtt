@@ -1,16 +1,20 @@
+# -*- coding: utf-8 -*-
+from time import time
 import paho.mqtt.client as mqtt
 from datetime import datetime
 import json
 info = -1
+times = 0
 def on_msg(client, userdata, msg):
-    global info
+    global info,times
     info = msg.payload.decode('utf8')
-    print("getinfo:",info)
+    times = 1
+    print("TIMES[{}] getinfo:{}".format(times,info))
 class onenet_mqtt(mqtt.Client):
     host = '183.230.40.39'  # mqtt.heclouds.com
     port = 6002
 
-    def __init__(self, pid, did, auth) -> None:
+    def __init__(self, pid, did, auth):
         '''
         pid: Product ID，产品ID,
         did：Device ID， 设备ID,
@@ -69,5 +73,11 @@ class onenet_mqtt(mqtt.Client):
         payload = self.__packdata(values)
         return super().publish('$dp', payload, qos)
     def getinfo(self):
-        global info
-        return info
+        global info,times
+        # print("class times",times)
+        if times!=0:
+            times = 0
+        else:
+            info = -1
+        # print("class info",info)
+        return int(info)
